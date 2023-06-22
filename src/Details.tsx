@@ -5,11 +5,19 @@ import AdoptedPetContext from "./AdoptedPetContext";
 import ErrorBoundary from "./ErrorBoundary";
 import fetchPet from "./fetchPet";
 import Carousel from "./Carousel";
+import { PetAPIResponse } from "./APIResponsesTypes";
 
 const Modal = lazy(() => import("./Modal"));
 
 const Details = () => {
   const { id } = useParams();
+
+  if (!id) {
+    throw new Error(
+      "Why did you not give me an id? I wanted an id. I have no id."
+    );
+  }
+
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
   const results = useQuery(["details", id], fetchPet);
